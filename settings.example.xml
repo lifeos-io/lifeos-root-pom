@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Merge into ~/.m2/settings.xml. Token: GitHub > Settings > Developer settings > PAT (classic) with read:packages -->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+    <servers>
+        <server>
+            <id>github</id>
+            <username>onrcanogul</username> <!-- your personal GitHub login (token owner) -->
+            <password>GITHUB_TOKEN</password>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>github</id>
+                    <!-- * = packages from all of this owner's repositories (lifeos-root-pom, lifeos-base, lifeos-contracts) -->
+                    <url>https://maven.pkg.github.com/lifeos-io/*</url>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>github</activeProfile>
+    </activeProfiles>
+</settings>
