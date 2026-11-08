@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Merge into ~/.m2/settings.xml. Token: GitHub > Settings > Developer settings > PAT (classic) with read:packages -->
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+<!--
+  Copy to ~/.m2/settings.xml (or merge the <server> into an existing one).
+  GitHub's Maven registry requires a token even for public packages; without it Maven gets HTTP 401.
+  The token is read from the GITHUB_PACKAGES_TOKEN environment variable, so nothing secret lives in this file.
+  Token: classic PAT with read:packages, or `gh auth refresh -s read:packages` and then `gh auth token`.
+  No <repositories> needed here: every Life OS pom.xml declares https://maven.pkg.github.com/lifeos-io/* with id "github".
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
             <id>github</id>
-            <username>onrcanogul</username> <!-- your personal GitHub login (token owner) -->
-            <password>GITHUB_TOKEN</password>
+            <username>YOUR_GITHUB_LOGIN</username>
+            <password>${env.GITHUB_PACKAGES_TOKEN}</password>
         </server>
     </servers>
-    <profiles>
-        <profile>
-            <id>github</id>
-            <repositories>
-                <repository>
-                    <id>github</id>
-                    <!-- * = packages from all of this owner's repositories (lifeos-root-pom, lifeos-base, lifeos-contracts) -->
-                    <url>https://maven.pkg.github.com/lifeos-io/*</url>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-    <activeProfiles>
-        <activeProfile>github</activeProfile>
-    </activeProfiles>
 </settings>
